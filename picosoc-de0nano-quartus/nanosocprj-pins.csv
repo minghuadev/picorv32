@@ -1,0 +1,35 @@
+# Copyright (C) 2016  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel MegaCore Function License Agreement, or other 
+# applicable license agreement, including, without limitation, 
+# that your use is for the sole purpose of programming logic 
+# devices manufactured by Intel and sold by Intel or its 
+# authorized distributors.  Please refer to the applicable 
+# agreement for further details.
+
+# Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
+# File: \picorv32\picosoc-de0nano-quartus\nanosocprj-pins.csv
+# Generated on: Thu Sep 17 21:02:15 2020
+
+# Note: The column header names should not be changed if you wish to import this .csv file into the Quartus Prime software.
+
+To,Direction,Location,I/O Bank,VREF Group,Fitter Location,I/O Standard,Reserved,Current Strength,Slew Rate,Differential Pair,Strict Preservation
+LED[7],Output,PIN_L3,2,B2_N0,PIN_L3,3.3-V LVTTL,,,,,
+LED[6],Output,PIN_B1,1,B1_N0,PIN_B1,3.3-V LVTTL,,,,,
+LED[5],Output,PIN_F3,1,B1_N0,PIN_F3,3.3-V LVTTL,,,,,
+LED[4],Output,PIN_D1,1,B1_N0,PIN_D1,3.3-V LVTTL,,,,,
+LED[3],Output,PIN_A11,7,B7_N0,PIN_A11,3.3-V LVTTL,,,,,
+LED[2],Output,PIN_B13,7,B7_N0,PIN_B13,3.3-V LVTTL,,,,,
+LED[1],Output,PIN_A13,7,B7_N0,PIN_A13,3.3-V LVTTL,,,,,
+LED[0],Output,PIN_A15,7,B7_N0,PIN_A15,3.3-V LVTTL,,,,,
+pin_clock50_in,Input,PIN_R8,3,B3_N0,PIN_R8,3.3-V LVTTL,,,,,
+pin_key[1],Input,PIN_E1,1,B1_N0,PIN_E1,3.3-V LVTTL,,,,,
+pin_key[0],Input,PIN_J15,5,B5_N0,PIN_J15,3.3-V LVTTL,,,,,
+pin_uart_rx,Input,PIN_J14,5,B5_N0,PIN_J14,3.3-V LVTTL,,,,,
+pin_uart_tx,Output,PIN_K15,5,B5_N0,PIN_K15,3.3-V LVTTL,,,,,

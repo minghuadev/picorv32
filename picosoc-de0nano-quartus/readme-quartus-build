@@ -1,0 +1,46 @@
+
+
+quartus prime lite 16.1 
+
+
+create project
+    project name: nanosocprj
+    top entity:   nanosoctop
+    use device: ep4ce22f17c6
+
+#not working the two lines below: 
+# add picosoc.v 
+# create symbol file from picosoc.v
+
+create : picosoc_de0nano.v   to include ../picorv32.v and ../picosoc-de0nano/picosoc.v, spimemio.v, simpleuart.v
+create : symbol file .bsf    from picosoc_de0nano.v
+
+create block diagram schematic file : nanosoctop.bdf
+
+insert : picosoc.bsf block   to the top design
+
+create : sample_clk12m_counter.v
+create : symbol file from it
+insert : symbol from it
+
+create : sample_counter.v
+create : symbol from it
+insert : symbol from it
+
+create : altpll
+
+
+build summary: 
+    logic elements  14731/22320 (66%)
+    registers       9738
+    memory bits     2048/608256 (< 1%)
+
+
+project files:
+    sample_counter.v
+    sample_clk12m_counter.v
+    picosoc_de0nano.v
+    nanosoctop.bdf
+    alt_cores/altpll_1.qip with alt_cores/altpll_1.v
+
+
