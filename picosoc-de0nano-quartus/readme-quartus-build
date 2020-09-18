@@ -44,3 +44,8 @@ project files:
     alt_cores/altpll_1.qip with alt_cores/altpll_1.v
 
 
+recreate the project, only add files: 
+    picosoc_de0nano.v
+    alt_cores/altpll_1.qip
+
+
