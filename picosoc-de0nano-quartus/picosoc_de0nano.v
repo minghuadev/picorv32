@@ -23,6 +23,8 @@
 `include "../picosoc-de0nano/picosoc.v"
 `include "../picorv32.v"
 
-`include "../picosoc-de0nano/spimemio.v"
+//`include "../picosoc-de0nano/spimemio.v"
+`include "./spimemio_init.v"
+
 `include "../picosoc-de0nano/simpleuart.v"
 
