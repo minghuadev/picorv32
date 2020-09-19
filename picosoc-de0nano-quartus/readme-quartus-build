@@ -54,3 +54,11 @@ program:
     create jic for epcs64 on ep4ce22
 
 
+project files, with the memory core: the top bdf is altomatically opened 
+    sample_counter.v
+    sample_clk12m_counter.v
+    picosoc_de0nano.v
+    alt_cores/altpll_1.qip with alt_cores/altpll_1.v
+    alt_cores/altm1p_1.qip with alt_cores/altm1p_1.v
+
+
