@@ -52,14 +52,18 @@ module spimemio (
 	reg [23:0] rd_addr;
 	reg ready_next;
 	wire [31:0] rdata_buffer;
+	reg spimem_ok;
 	
 	initial begin
 		ready = 0;
 		ready_next = 0;
+		spimem_ok = 0;
 	end
 	
 	parameter base_addr_m = 4'b1; // 1M
 	parameter base_size_byte = 8192;
+	
+	assign flash_csb = spimem_ok;
 
 	always @(negedge clk) begin
 		if ( xfer_resetn && valid && (addr[23:20] == base_addr_m) ) begin
@@ -72,7 +76,13 @@ module spimemio (
 						ready_next <= 1;
 					end
 				end
+				spimem_ok <= 1'b1;
+			end else begin
+				spimem_ok <= 1'b0;
 			end
+		end else begin
+			ready_next <= 0;
+			spimem_ok <= 1'b0;
 		end
 	end
 	

@@ -180,6 +180,38 @@ agreement for further details.
 		(line (pt 78 12)(pt 82 8))
 	)
 )
+(pin
+	(output)
+	(rect 720 528 896 544)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "pin_flash_csb" (rect 90 0 154 17)(font "Intel Clear" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(pin
+	(output)
+	(rect 720 448 898 464)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "pin_iomem_valid" (rect 90 0 172 17)(font "Intel Clear" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
 (symbol
 	(rect 336 8 520 120)
 	(text "sample_counter" (rect 5 0 82 12)(font "Arial" ))
@@ -588,6 +620,41 @@ agreement for further details.
 		(rectangle (rect 16 16 128 64))
 	)
 )
+(symbol
+	(rect 240 216 416 296)
+	(text "sample_por" (rect 5 0 61 12)(font "Arial" ))
+	(text "inst6" (rect 8 64 30 81)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clock48" (rect 0 0 37 12)(font "Arial" ))
+		(text "clock48" (rect 21 27 58 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reseted" (rect 0 0 36 12)(font "Arial" ))
+		(text "reseted" (rect 21 43 57 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 176 32)
+		(output)
+		(text "resetn_out" (rect 0 0 51 12)(font "Arial" ))
+		(text "resetn_out" (rect 112 27 163 39)(font "Arial" ))
+		(line (pt 176 32)(pt 160 32))
+	)
+	(parameter
+		"reset_clocks"
+		"800"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 160 64))
+	)
+	(annotation_block (parameter)(rect 416 176 600 216))
+)
 (connector
 	(text "counter_main[31..0]" (rect 530 24 624 41)(font "Intel Clear" ))
 	(pt 520 40)
@@ -640,11 +707,6 @@ agreement for further details.
 (connector
 	(pt 216 144)
 	(pt 232 144)
-)
-(connector
-	(text "sig_reseted" (rect 138 456 192 473)(font "Intel Clear" ))
-	(pt 280 472)
-	(pt 128 472)
 )
 (connector
 	(pt 216 568)
@@ -707,4 +769,40 @@ agreement for further details.
 	(text "sig_reseted" (rect 514 -32 568 -15)(font "Intel Clear" ))
 	(pt 592 -16)
 	(pt 504 -16)
+)
+(connector
+	(text "clk50_main" (rect 138 216 193 233)(font "Intel Clear" ))
+	(pt 224 232)
+	(pt 128 232)
+)
+(connector
+	(text "resetn_main" (rect 138 456 197 473)(font "Intel Clear" ))
+	(pt 280 472)
+	(pt 128 472)
+)
+(connector
+	(pt 224 248)
+	(pt 240 248)
+)
+(connector
+	(pt 224 232)
+	(pt 224 248)
+)
+(connector
+	(text "resetn_main" (rect 426 232 485 249)(font "Intel Clear" ))
+	(pt 416 248)
+	(pt 496 248)
+)
+(connector
+	(text "sig_reseted" (rect 138 248 192 265)(font "Intel Clear" ))
+	(pt 128 264)
+	(pt 240 264)
+)
+(connector
+	(pt 536 536)
+	(pt 720 536)
+)
+(connector
+	(pt 720 456)
+	(pt 536 456)
 )

@@ -1,0 +1,32 @@
+
+    debug spimem_init use
+
+diff --git a/picosoc-de0nano/picosoc.v b/picosoc-de0nano/picosoc.v
+index 9c5981e..941f654 100644
+--- a/picosoc-de0nano/picosoc.v
++++ b/picosoc-de0nano/picosoc.v
+@@ -103,11 +103,13 @@ module picosoc (
+ 
+ 	wire spimem_ready;
+ 	wire [31:0] spimem_rdata;
++	wire spimem_valid = (mem_valid && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h 0200_0000); //new: 
+ 
+ 	reg ram_ready;
+ 	wire [31:0] ram_rdata;
+ 
+-	assign iomem_valid = mem_valid && (mem_addr[31:24] > 8'h 01);
++	//assign iomem_valid = mem_valid && (mem_addr[31:24] > 8'h 01);
++	assign iomem_valid = spimem_valid; //new:
+ 	assign iomem_wstrb = mem_wstrb;
+ 	assign iomem_addr = mem_addr;
+ 	assign iomem_wdata = mem_wdata;
+@@ -156,7 +158,8 @@ module picosoc (
+ 	spimemio spimemio (
+ 		.clk    (clk),
+ 		.resetn (resetn),
+-		.valid  (mem_valid && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h 0200_0000),
++		//.valid  (mem_valid && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h 0200_0000),
++		.valid  (spimem_valid), //new: 
+ 		.ready  (spimem_ready),
+ 		.addr   (mem_addr[23:0]),
+ 		.rdata  (spimem_rdata),
