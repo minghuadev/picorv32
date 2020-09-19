@@ -68,3 +68,15 @@ LED[1],Output,PIN_A13,7,B7_N0,PIN_A13,3.3-V LVTTL,,,,,
 LED[0],Output,PIN_A15,7,B7_N0,PIN_A15,3.3-V LVTTL,,,,,
 
 
+reference .../tof-s9pproj/s9prj/fpgasbt10p.csv: 
+Jul 24 2018
+
+altera_reserved_tck,Input,,,,PIN_H3,,,,,,
+altera_reserved_tdi,Input,,,,PIN_H4,,,,,,
+altera_reserved_tdo,Output,,,,PIN_J4,,,,,,
+altera_reserved_tms,Input,,,,PIN_J5,,,,,,
+
+JP1_14_GPIO_09_OUT,Output,PIN_D5,8,B8_N0,PIN_D5,3.3-V LVTTL,,4ma,,,
+JP1_16_GPIO_011_OUT,Output,PIN_A6,8,B8_N0,PIN_A6,3.3-V LVTTL,,4ma,,,
+
+

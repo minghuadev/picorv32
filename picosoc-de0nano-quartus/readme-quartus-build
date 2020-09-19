@@ -49,3 +49,8 @@ recreate the project, only add files:
     alt_cores/altpll_1.qip
 
 
+program:
+
+    create jic for epcs64 on ep4ce22
+
+
