@@ -50,44 +50,35 @@ module spimemio (
 	reg        xfer_resetn;
 
 	reg [23:0] rd_addr;
-	reg ready_next;
+	reg [1:0] xfer_state;
 	wire [31:0] rdata_buffer;
-	reg spimem_ok;
+	reg spimem_addr_ok;
 	
 	initial begin
 		ready = 0;
-		ready_next = 0;
-		spimem_ok = 0;
+		xfer_state = 0;
+		spimem_addr_ok = 0;
 	end
 	
 	parameter base_addr_m = 4'b1; // 1M
 	parameter base_size_byte = 8192;
 	
-	assign flash_csb = spimem_ok;
+	assign flash_csb = spimem_addr_ok;
 
 	always @(negedge clk) begin
 		if ( xfer_resetn && valid && (addr[23:20] == base_addr_m) ) begin
 			if (addr[19:0] < base_size_byte) begin
-				if ( !ready ) begin
-					if ( ready_next ) begin
-						ready_next <= 0;
-					end else begin
-						rd_addr <= addr;
-						ready_next <= 1;
-					end
-				end
-				spimem_ok <= 1'b1;
+				spimem_addr_ok <= 1'b1;
 			end else begin
-				spimem_ok <= 1'b0;
+				spimem_addr_ok <= 1'b0;
 			end
 		end else begin
-			ready_next <= 0;
-			spimem_ok <= 1'b0;
+			spimem_addr_ok <= 1'b0;
 		end
 	end
 	
 	altm1p_1        altm1p_1_inst (
-        .address( rd_addr[11:0] ), // 12-bit
+        .address( rd_addr[12:0] ), // 13-bit for 8192
         .clock ( clk ),
         .data ( 32'b0 ),
         .wren ( 1'b0 ),
@@ -97,14 +88,25 @@ module spimemio (
 	always @(posedge clk) begin
 		xfer_resetn <= resetn;
 		if ( xfer_resetn ) begin
-			if ( ready_next ) begin
-				rdata <= rdata_buffer;
-				ready <= 1;
+			if ( spimem_addr_ok ) begin
+				if (xfer_state == 0) begin
+					rd_addr <= addr; // mem addr latched here
+					ready <= 0;
+					xfer_state <= 1;
+				end else if (xfer_state == 1) begin
+					xfer_state <= 2; // mem addr latched to the mem module
+				end else if (xfer_state == 2) begin
+					rdata <= rdata_buffer;
+					ready <= 1;
+					xfer_state <= 3;
+				end
 			end else begin
 				ready <= 0;
+				xfer_state <= 0;
 			end
 		end else begin
 			ready <= 0;
+			xfer_state <= 0;
 		end
 	end
 	

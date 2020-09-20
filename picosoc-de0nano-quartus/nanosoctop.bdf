@@ -212,6 +212,22 @@ agreement for further details.
 		(line (pt 78 12)(pt 82 8))
 	)
 )
+(pin
+	(output)
+	(rect 720 480 925 496)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "pin_iomem_addr[31..0]" (rect 90 0 199 17)(font "Intel Clear" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
 (symbol
 	(rect 336 8 520 120)
 	(text "sample_counter" (rect 5 0 82 12)(font "Arial" ))
@@ -805,4 +821,9 @@ agreement for further details.
 (connector
 	(pt 720 456)
 	(pt 536 456)
+)
+(connector
+	(pt 536 488)
+	(pt 720 488)
+	(bus)
 )
