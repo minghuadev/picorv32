@@ -21,7 +21,7 @@ module spimemio (
 	input clk, resetn,
 
 	input valid,
-	output reg ready,
+	output ready,
 	input [23:0] addr,
 	output reg [31:0] rdata,
 
@@ -52,31 +52,24 @@ module spimemio (
 	reg [23:0] rd_addr;
 	reg [1:0] xfer_state;
 	wire [31:0] rdata_buffer;
-	reg spimem_addr_ok;
+	wire spimem_addr_ok;
+	reg ready_state;
 	
 	initial begin
-		ready = 0;
+		ready_state = 0;
 		xfer_state = 0;
-		spimem_addr_ok = 0;
 	end
 	
 	parameter base_addr_m = 4'b1; // 1M
 	parameter base_size_byte = 8192;
 	
-	assign flash_csb = spimem_addr_ok;
-
-	always @(negedge clk) begin
-		if ( xfer_resetn && valid && (addr[23:20] == base_addr_m) ) begin
-			if (addr[19:0] < base_size_byte) begin
-				spimem_addr_ok <= 1'b1;
-			end else begin
-				spimem_addr_ok <= 1'b0;
-			end
-		end else begin
-			spimem_addr_ok <= 1'b0;
-		end
-	end
+	assign flash_csb = spimem_addr_ok; // debug
+	assign flash_clk = ready; // debug
 	
+	assign ready = ready_state && valid;
+	
+	assign spimem_addr_ok = xfer_resetn && valid && (addr[23:20] == base_addr_m) && (addr[19:0] < base_size_byte);
+
 	altm1p_1        altm1p_1_inst (
         .address( rd_addr[12:0] ), // 13-bit for 8192
         .clock ( clk ),
@@ -91,21 +84,21 @@ module spimemio (
 			if ( spimem_addr_ok ) begin
 				if (xfer_state == 0) begin
 					rd_addr <= addr; // mem addr latched here
-					ready <= 0;
+					ready_state <= 0;
 					xfer_state <= 1;
 				end else if (xfer_state == 1) begin
 					xfer_state <= 2; // mem addr latched to the mem module
 				end else if (xfer_state == 2) begin
 					rdata <= rdata_buffer;
-					ready <= 1;
+					ready_state <= 1;
 					xfer_state <= 3;
 				end
 			end else begin
-				ready <= 0;
+				ready_state <= 0;
 				xfer_state <= 0;
 			end
 		end else begin
-			ready <= 0;
+			ready_state <= 0;
 			xfer_state <= 0;
 		end
 	end
