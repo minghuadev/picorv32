@@ -1,0 +1,10 @@
+
+
+change of these lines does not have the effect of preserving signals for signaltap logic analyzer:
+
+
+set_global_assignment -name PRE_MAPPING_RESYNTHESIS OFF
+set_global_assignment -name REMOVE_REDUNDANT_LOGIC_CELLS OFF
+set_global_assignment -name REMOVE_DUPLICATE_REGISTERS OFF
+
+

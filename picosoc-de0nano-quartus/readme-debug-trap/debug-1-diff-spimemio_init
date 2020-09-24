@@ -1,0 +1,14 @@
+diff --git a/picosoc-de0nano-quartus/spimemio_init.v b/picosoc-de0nano-quartus/spimemio_init.v
+index 1f048c7..2e745e5 100644
+--- a/picosoc-de0nano-quartus/spimemio_init.v
++++ b/picosoc-de0nano-quartus/spimemio_init.v
+@@ -65,6 +65,9 @@ module spimemio (
+ 	
+ 	assign flash_csb = spimem_addr_ok; // debug
+ 	assign flash_clk = ready; // debug
++	assign flash_io0_oe = clk; // debug
++	assign flash_io1_oe = valid; // debug
++	assign flash_io0_do = !resetn; // debug
+ 	
+ 	assign ready = ready_state && valid;
+ 	

@@ -1,0 +1,66 @@
+diff --git a/picorv32.v b/picorv32.v
+index 6364cbe..41abdec 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1600,6 +1600,8 @@ module picorv32 #(
+ 								if (CATCH_ILLINSN && (pcpi_timeout || instr_ecall_ebreak)) begin
+ 									pcpi_valid <= 0;
+ 									`debug($display("EBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
++									trace_valid <= 1;
++									trace_data <= {4'h9, reg_pc};
+ 									if (ENABLE_IRQ && !irq_mask[irq_ebreak] && !irq_active) begin
+ 										next_irq_pending[irq_ebreak] = 1;
+ 										cpu_state <= cpu_state_fetch;
+@@ -1611,6 +1613,8 @@ module picorv32 #(
+ 							end
+ 						end else begin
+ 							`debug($display("EBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
++									trace_valid <= 1;
++									trace_data <= {4'h2, reg_pc};
+ 							if (ENABLE_IRQ && !irq_mask[irq_ebreak] && !irq_active) begin
+ 								next_irq_pending[irq_ebreak] = 1;
+ 								cpu_state <= cpu_state_fetch;
+@@ -1772,6 +1776,8 @@ module picorv32 #(
+ 						if (CATCH_ILLINSN && (pcpi_timeout || instr_ecall_ebreak)) begin
+ 							pcpi_valid <= 0;
+ 							`debug($display("EBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
++									trace_valid <= 1;
++									trace_data <= {4'h3, reg_pc};
+ 							if (ENABLE_IRQ && !irq_mask[irq_ebreak] && !irq_active) begin
+ 								next_irq_pending[irq_ebreak] = 1;
+ 								cpu_state <= cpu_state_fetch;
+@@ -1917,6 +1923,8 @@ module picorv32 #(
+ 		if (CATCH_MISALIGN && resetn && (mem_do_rdata || mem_do_wdata)) begin
+ 			if (mem_wordsize == 0 && reg_op1[1:0] != 0) begin
+ 				`debug($display("MISALIGNED WORD: 0x%08x", reg_op1);)
++									trace_valid <= 1;
++									trace_data <= {4'h4, reg_pc};
+ 				if (ENABLE_IRQ && !irq_mask[irq_buserror] && !irq_active) begin
+ 					next_irq_pending[irq_buserror] = 1;
+ 				end else
+@@ -1924,6 +1932,8 @@ module picorv32 #(
+ 			end
+ 			if (mem_wordsize == 1 && reg_op1[0] != 0) begin
+ 				`debug($display("MISALIGNED HALFWORD: 0x%08x", reg_op1);)
++									trace_valid <= 1;
++									trace_data <= {4'h5, reg_pc};
+ 				if (ENABLE_IRQ && !irq_mask[irq_buserror] && !irq_active) begin
+ 					next_irq_pending[irq_buserror] = 1;
+ 				end else
+@@ -1932,12 +1942,16 @@ module picorv32 #(
+ 		end
+ 		if (CATCH_MISALIGN && resetn && mem_do_rinst && (COMPRESSED_ISA ? reg_pc[0] : |reg_pc[1:0])) begin
+ 			`debug($display("MISALIGNED INSTRUCTION: 0x%08x", reg_pc);)
++									trace_valid <= 1;
++									trace_data <= {4'h6, reg_pc};
+ 			if (ENABLE_IRQ && !irq_mask[irq_buserror] && !irq_active) begin
+ 				next_irq_pending[irq_buserror] = 1;
+ 			end else
+ 				cpu_state <= cpu_state_trap;
+ 		end
+ 		if (!CATCH_ILLINSN && decoder_trigger_q && !decoder_pseudo_trigger_q && instr_ecall_ebreak) begin
++									trace_valid <= 1;
++									trace_data <= {4'h7, reg_pc};
+ 			cpu_state <= cpu_state_trap;
+ 		end
+ 

@@ -1,0 +1,52 @@
+diff --git a/picosoc-de0nano/picosoc.v b/picosoc-de0nano/picosoc.v
+index 9c5981e..b796723 100644
+--- a/picosoc-de0nano/picosoc.v
++++ b/picosoc-de0nano/picosoc.v
+@@ -106,11 +106,36 @@ module picosoc (
+ 
+ 	reg ram_ready;
+ 	wire [31:0] ram_rdata;
++	
++	wire trace_valid;
++	wire [35:0] trace_data;
++	wire flash_io0_do_flash;
++	reg trace_valid_state;
++	reg [3:0] trace_state_count;
+ 
+ 	assign iomem_valid = mem_valid && (mem_addr[31:24] > 8'h 01);
+-	assign iomem_wstrb = mem_wstrb;
++	//assign iomem_wstrb = mem_wstrb;
+ 	assign iomem_addr = mem_addr;
+-	assign iomem_wdata = mem_wdata;
++	//assign iomem_wdata = mem_wdata;
++	assign iomem_wstrb = (!trace_valid?mem_wstrb:trace_data[35:32]); // debug
++	assign iomem_wdata = (!trace_valid?mem_wdata:{24'b0, flash_io0_do_trace[7:0]}); // debug
++	assign flash_io0_do = (!trace_valid?flash_io0_do_flash:trace_valid); // debug
++	reg [35:0] flash_io0_do_trace;
++	always @(posedge clk) begin
++		if ( !trace_valid ) begin
++			trace_state_count <= 0;
++		end else if ( !trace_valid_state ) begin
++			trace_state_count <= trace_state_count + 1; // trace_state becomes 1
++			flash_io0_do_trace[35:0] <= trace_data[35:0];
++		end
++		if ( trace_state_count >= 1 ) begin
++			trace_state_count <= trace_state_count + 1; // trace_state becomes 1
++			flash_io0_do_trace[23:0] <= flash_io0_do_trace[31:8];
++			flash_io0_do_trace[31:24] <= 0;
++		end
++		trace_valid_state <= trace_valid;
++	end
++
+ 
+ 	wire spimemio_cfgreg_sel = mem_valid && (mem_addr == 32'h 0200_0000);
+ 	wire [31:0] spimemio_cfgreg_do;
+@@ -169,7 +194,7 @@ module picosoc (
+ 		.flash_io2_oe (flash_io2_oe),
+ 		.flash_io3_oe (flash_io3_oe),
+ 
+-		.flash_io0_do (flash_io0_do),
++		.flash_io0_do (flash_io0_do_flash),
+ 		.flash_io1_do (flash_io1_do),
+ 		.flash_io2_do (flash_io2_do),
+ 		.flash_io3_do (flash_io3_do),
