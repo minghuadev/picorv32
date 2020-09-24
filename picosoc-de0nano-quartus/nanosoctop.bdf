@@ -685,41 +685,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 240 216 416 296)
-	(text "sample_por" (rect 5 0 61 12)(font "Arial" ))
-	(text "inst6" (rect 8 64 30 81)(font "Intel Clear" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clock48" (rect 0 0 37 12)(font "Arial" ))
-		(text "clock48" (rect 21 27 58 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "reseted" (rect 0 0 36 12)(font "Arial" ))
-		(text "reseted" (rect 21 43 57 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 176 32)
-		(output)
-		(text "resetn_out" (rect 0 0 51 12)(font "Arial" ))
-		(text "resetn_out" (rect 112 27 163 39)(font "Arial" ))
-		(line (pt 176 32)(pt 160 32))
-	)
-	(parameter
-		"reset_clocks"
-		"800"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 160 64))
-	)
-	(annotation_block (parameter)(rect 416 176 600 216))
-)
-(symbol
 	(rect 328 816 536 960)
 	(text "peri_gpio" (rect 5 0 48 12)(font "Arial" ))
 	(text "inst10" (rect 8 128 36 145)(font "Intel Clear" ))
@@ -812,6 +777,48 @@ agreement for further details.
 		(rectangle (rect 16 16 192 128))
 	)
 	(annotation_block (parameter)(rect 536 736 920 816))
+)
+(symbol
+	(rect 240 216 416 328)
+	(text "sample_por" (rect 5 0 61 12)(font "Arial" ))
+	(text "inst6" (rect 8 96 30 113)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clock48" (rect 0 0 37 12)(font "Arial" ))
+		(text "clock48" (rect 21 27 58 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reseted" (rect 0 0 36 12)(font "Arial" ))
+		(text "reseted" (rect 21 43 57 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "clk2" (rect 0 0 20 12)(font "Arial" ))
+		(text "clk2" (rect 21 59 41 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 176 32)
+		(output)
+		(text "resetn_out" (rect 0 0 51 12)(font "Arial" ))
+		(text "resetn_out" (rect 112 27 163 39)(font "Arial" ))
+		(line (pt 176 32)(pt 160 32))
+	)
+	(parameter
+		"reset_clocks"
+		"800"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 160 96))
+	)
+	(annotation_block (parameter)(rect 416 176 600 216))
 )
 (connector
 	(text "counter_main[31..0]" (rect 530 24 624 41)(font "Intel Clear" ))
@@ -941,11 +948,6 @@ agreement for further details.
 	(pt 224 248)
 )
 (connector
-	(text "resetn_main" (rect 426 232 485 249)(font "Intel Clear" ))
-	(pt 416 248)
-	(pt 496 248)
-)
-(connector
 	(text "sig_reseted" (rect 138 248 192 265)(font "Intel Clear" ))
 	(pt 128 264)
 	(pt 240 264)
@@ -1058,4 +1060,22 @@ agreement for further details.
 	(pt 720 880)
 	(pt 664 880)
 	(bus)
+)
+(connector
+	(text "resetn_main" (rect 418 232 477 249)(font "Intel Clear" ))
+	(pt 416 248)
+	(pt 488 248)
+)
+(connector
+	(pt 240 280)
+	(pt 224 280)
+)
+(connector
+	(pt 224 280)
+	(pt 224 296)
+)
+(connector
+	(text "clk48" (rect 138 280 163 297)(font "Intel Clear" ))
+	(pt 224 296)
+	(pt 128 296)
 )
