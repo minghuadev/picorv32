@@ -53,6 +53,11 @@ with open(cfg_hex_file, "r") as inf:
             if (slen % 4) != 0:
                 if (slen %4) == 1 and segs[-1] == '00': # ok
                     segs = segs[:-1]
+                elif (slen % 4) == 3 and segs[-1] == '00': # ok
+                    segs.append("00")
+                elif (slen % 4) == 2 and segs[-1] == '00': # ok
+                    segs.append("00")
+                    segs.append("00")
                 else:
                     print("Error: slen %d not a multiple of 4 at line %d" % (slen, linecnt))
                     break
