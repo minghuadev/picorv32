@@ -20,6 +20,11 @@
 
 `timescale 1 ns / 1 ps
 
+
+// redefine static ram which is defined in picosoc.v too.
+`include "./picosoc_de0nano_mem.v"
+
+
 `include "../picosoc-de0nano/picosoc.v"
 `include "../picorv32.v"
 

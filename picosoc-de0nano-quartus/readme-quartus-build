@@ -57,8 +57,37 @@ program:
 project files, with the memory core: the top bdf is altomatically opened 
     sample_counter.v
     sample_clk12m_counter.v
+    sample_por.v
+    sample_peri_gpio.v
     picosoc_de0nano.v
     alt_cores/altpll_1.qip with alt_cores/altpll_1.v
     alt_cores/altm1p_1.qip with alt_cores/altm1p_1.v
+
+  flow summary:
+    Total logic elements            13,763 / 22,320 (62%)
+    Total registers                  9,707
+    Total memory bits              264,192 / 608,256 (43%)
+    Slow 1200mv 85C fmax clk1        100.85 MHz
+    Slow 1200mv 0C fmax clk1         111.58 MHz
+
+  reflow changing MEM_WORDS from 256 to 32:
+    Total logic elements             5,248 / 22,320 (24%)
+    Total registers                  2,539
+    Total memory bits              264,192 / 608,256 (43%)
+
+  reflow changing MEM_WORDS from 256 to 0:
+    Total logic elements             3,931 / 22,320 (18%)
+    Total registers                  1,482
+    Total memory bits              264,192 / 608,256 (43%)
+
+  reflow using MEM_WORDS 256 and picosoc_mem_de0nano: 
+    Total logic elements             3,938 / 22,320 (18%)
+    Total registers                  1,483
+    Total memory bits              272,384 / 608,256 (45%)
+
+  reflow disable -mc: 
+    Total logic elements             2,697 / 22,320 (12%)
+    Total registers                    976
+    Total memory bits              272,384 / 608,256 (45%)
 
 
